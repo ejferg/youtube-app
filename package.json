@@ -4,8 +4,8 @@
   "description": "A simple youtube app using Angular 2.0",
   "main": "main.ts",
   "dependencies": {
-    "angular2": "2.0.0-alpha.40",
-    "systemjs": "0.18.17"
+    "angular2": "*",
+    "systemjs": "*"
   },
   "devDependencies": {},
   "scripts": {

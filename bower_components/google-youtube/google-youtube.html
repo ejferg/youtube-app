@@ -103,7 +103,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
        * [the documented](https://developers.google.com/youtube/iframe_api_reference#onStateChange)
        * states.
        *
-       * @event googleyoutubestatechange
+       * @event google-youtube-state-change
        * @param {Object} e Event parameters.
        */
 
@@ -119,7 +119,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
       /**
        * Sets the id of the video to play. Changing this attribute will trigger a call
        * to load a new video into the player (if `this.autoplay` is set to `1` and `playsupported` is true)
-       * or cue a new video otherwise.
+       * or cue a new video otherwise. 
        *
        * You can [search for videos programmatically](https://developers.google.com/youtube/v3/docs/search/list)
        * using the YouTube Data API, or just hardcode known video ids to display on your page.
@@ -128,11 +128,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
        * @type string
        * @default 'mN7IAaRdi_k'
        */
-
-      _videoid:'mN7IAaRdi_k',
-
-      get videoid() { return this._videoid;},
-      set videoid(id) { this._videoid = id; this.videoidChanged();},
+      videoid: 'mN7IAaRdi_k',
 
       /**
        * Whether programmatic `<video>.play()` for initial playback is supported in the current browser.
@@ -321,10 +317,6 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
        *   - Whatever happens, cache the result in localStorage.
        */
       _determinePlaySupported: function() {
-        // TODO(rado): figure out why is support incorrectly determined and file a bug.
-        this.playsupported = true;
-        return;
-
         // If playsupported isn't already being overridden by the page using this component, then attempt
         // to determine if it's supported.
         // This is deliberately checking with ==, to match either undefined or null.
@@ -517,7 +509,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
           this.pendingVideoId = this.videoid;
         } else {
           // Figure out whether we should cue or load (which will autoplay) the next video.
-          if (this.playsupported && this.attributes['autoplay'].value == '1') {
+          if (this.playsupported && this.attributes['autoplay'] && this.attributes['autoplay'].value == '1') {
             this.player.loadVideoById(this.videoid);
           } else {
             this.player.cueVideoById(this.videoid);
@@ -596,7 +588,7 @@ The standard set of [YouTube player events](https://developers.google.com/youtub
                 }
               }
 
-              this.fire('googleyoutubestatechange', e);
+              this.fire('google-youtube-state-change', e);
             }.bind(this),
             onError: function(e) {
               // Set the player state to 0 ('ended'), since playback will have stopped.

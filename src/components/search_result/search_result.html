@@ -12,7 +12,7 @@
       <google-youtube chromeless="0"
          #player
          [videoid]="video.id"
-         (googleyoutubestatechange)="setState($event.detail.data)">
+         (^google-youtube-state-change)="setState($event.detail.data)">
       </google-youtube>
       <button *ng-if="!isPlaying()" class="md-button md-default-theme md-raised"
               (click)="player.play()">Play
